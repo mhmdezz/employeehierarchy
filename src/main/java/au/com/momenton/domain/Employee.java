@@ -45,7 +45,6 @@ public class Employee {
         this.employeeName = employeeName;
     }
 
-
     public Employee getManager() {
         return manager;
     }
