@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employees Hierarchy</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin: auto;
+  padding: 10px 10px;
+}
+</style>
+
+<body>
+
+
+<h1>Employees Hierarchy</h1>
+<div id="main"></div>
+
+
+<script th:inline="javascript">
+
+/*<![CDATA[*/
+  const topManagers = /*[[${employees}]]*/ ;
+/*]]>*/
+
+
+const displayDirectEmployeesOfManager = (manager, table, cellShift) => {
+
+    const tr = document.createElement("tr");
+
+    for(var i=0 ; i<cellShift; i++){
+        const td = document.createElement("td");
+        tr.appendChild(td);
+    }
+
+    const name = document.createTextNode(manager.employeeName);
+    const td = document.createElement("td");
+    td.appendChild(name);
+    tr.appendChild(td);
+
+    table.appendChild(tr);
+    cellShift++;
+
+    manager.directEmployees.forEach(m => displayDirectEmployeesOfManager(m, table, cellShift));
+
+}
+
+
+const displayEmployeesOfTopManager = (topManager) => {
+
+	const table = document.createElement("table");
+
+    displayDirectEmployeesOfManager(topManager, table, 0);
+
+    mainDiv.appendChild(table);
+
+    mainDiv.appendChild(document.createElement("BR"));
+
+};
+
+var mainDiv = document.getElementById("main");
+
+topManagers.forEach(topManager => displayEmployeesOfTopManager(topManager));
+
+</script>
+
+
+</body>
+</html>
