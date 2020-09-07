@@ -1,15 +1,23 @@
 package au.com.momenton;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+import au.com.momenton.rest.EmployeeController;
+import org.junit.jupiter.api.Test;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
 public class EmployeeHierarchyApplicationTests {
 
+	@Autowired
+	private EmployeeController employeeController;
 
 	@Test
-	public void contextLoads() {
+	public void contextLoads() throws Exception {
+
+		assertThat(employeeController).isNotNull();
 	}
 
 }
